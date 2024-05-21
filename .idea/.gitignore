@@ -3,3 +3,62 @@
 /workspace.xml
 *.xml
 *.iml
+
+# Operating System
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# Java
+*.class
+*.log
+
+# Environment variables
+.env
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Distribution files
+*.war
+*.jar
+
+# Generated files
+*.class
+*.log
+
+# Logs
+*.log
+*.pid
+*.gz
+
+# Temporary files
+tmp/
+*.tmp
+*.temp
+
+# Spring Boot
+spring.log
+
+# JPA
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Misc
+*.swp
+*~
+.project
+.idea
+*.tmproj
