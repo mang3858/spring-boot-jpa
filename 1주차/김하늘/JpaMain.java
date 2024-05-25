@@ -16,7 +16,7 @@ public class JpaMain {
         try {
             Member member = new Member();
             member.setId(3L);
-            member.setName("HelloC"); //프로젝트 실행 단축키 : Shift + F10
+            member.setName("HelloC");
 
             em.persist(member); //JPA에 저장하기
 
