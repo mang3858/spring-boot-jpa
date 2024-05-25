@@ -1,5 +1,3 @@
-package hellojpa;
-
 import jakarta.persistence.*;
 
 public class JpaMain {
@@ -14,11 +12,10 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Member member = new Member();
-            member.setId(3L);
-            member.setName("HelloC");
-
-            em.persist(member); //JPA에 저장하기
+            // 디비 create 문제 해결
+            Member findMember = em.find(Member.class, 2L);
+            System.out.println("findMember.id = " + findMember.getId());
+            System.out.println("findMember.name = " + findMember.getName());
 
             tx.commit();
         } catch (Exception e) {
