@@ -1,3 +1,5 @@
+package hellojpa;
+
 import jakarta.persistence.*;
 
 public class JpaMain {
@@ -12,10 +14,14 @@ public class JpaMain {
         tx.begin();
 
         try {
-            // 디비 create 문제 해결
+
+            //멤버 찾기
             Member findMember = em.find(Member.class, 2L);
             System.out.println("findMember.id = " + findMember.getId());
             System.out.println("findMember.name = " + findMember.getName());
+
+            //멤버 삭제
+            em.remove(findMember);
 
             tx.commit();
         } catch (Exception e) {
