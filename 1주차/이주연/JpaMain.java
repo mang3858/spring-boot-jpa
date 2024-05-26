@@ -2,6 +2,8 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 public class JpaMain {
 
     public static void main(String[] args) {
@@ -13,9 +15,15 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try{
+            // 비영속
+            Member member = new Member();
+            member.setId(100L);
+            member.setName("HelloJpa");
 
-            Member findMember = em.find(Member.class, 2L);
-            findMember.setName("HelloJPA");
+            // 영속
+            System.out.println("Before");
+            em.persist(member);
+            System.out.println("After");
 
             tx.commit();
         } catch (Exception e){
@@ -27,3 +35,4 @@ public class JpaMain {
         emf.close();
     }
 }
+
