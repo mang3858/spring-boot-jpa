@@ -15,16 +15,10 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try{
-            // 비영속
-            Member member = new Member();
-            member.setId(100L);
-            member.setName("HelloJpa");
+            Member findMember1 = em.find(Member.class, 100L);
+            Member findMember2 = em.find(Member.class, 100L);
 
-            // 영속
-            System.out.println("Before");
-            em.persist(member);
-            System.out.println("After");
-
+            System.out.println("result = " + (findMember1 == findMember2));
             tx.commit();
         } catch (Exception e){
             tx.rollback();
@@ -35,4 +29,3 @@ public class JpaMain {
         emf.close();
     }
 }
-
