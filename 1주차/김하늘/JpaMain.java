@@ -9,7 +9,7 @@ public class JpaMain {
     public static void main(String[] args) {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = emf.createEntityManager(); // 엔티티 매니저와 영속성 컨텍스트는 1:1 관계임
         //code
 
         EntityTransaction tx = em.getTransaction();
@@ -25,6 +25,7 @@ public class JpaMain {
 //            -- 영속 상태 --
 //            em.detach(member);
 //            -- 준영속 상태 -- ; 회원 엔티티를 영속성 컨텍스트에서 분리
+//            em.clear(); // 영속성 컨텍스트 통으로 비우기
 
             //멤버 찾기
 //            Member findMember = em.find(Member.class, 1L);
