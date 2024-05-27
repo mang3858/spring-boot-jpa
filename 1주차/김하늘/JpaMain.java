@@ -20,7 +20,11 @@ public class JpaMain {
 //            Member member = new Member();
 //            member.setId(1l);
 //            member.setName("HelloA"); //프로젝트 실행 단축키 : Shift + F10
+//            -- 비영속 상태 --
 //            em.persist(member); //JPA에 저장하기
+//            -- 영속 상태 --
+//            em.detach(member);
+//            -- 준영속 상태 -- ; 회원 엔티티를 영속성 컨텍스트에서 분리
 
             //멤버 찾기
 //            Member findMember = em.find(Member.class, 1L);
@@ -34,11 +38,18 @@ public class JpaMain {
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("HelloJPA");
 
-            // JPQL ; 데이터 조회 방법 ; 객체 지향 코드
-            List<Member> result = em.createQuery("select m from Member as m", Member.class).setFirstResult(0).setMaxResults(2).getResultList();
+            // JPQL ; 데이터 조회 방법 ; 객체 지향 코드 ; 엔티티 객체를 대상으로 쿼리를 날림
+/*            List<Member> result = em.createQuery("select m from Member as m", Member.class).setFirstResult(0).setMaxResults(2).getResultList();
             for (Member member : result) {
                 System.out.println("member.name = " + member.getName());
-            }
+            }*/
+
+            Member member1 = new Member(150L, "A");
+            Member member2 = new Member(160L, "B");
+
+            em.persist(member1);
+            em.persist(member2);
+
 
             tx.commit();
         } catch (Exception e) {
