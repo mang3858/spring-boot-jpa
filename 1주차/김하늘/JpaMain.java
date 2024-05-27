@@ -2,6 +2,8 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 public class JpaMain {
 
     public static void main(String[] args) {
@@ -14,7 +16,6 @@ public class JpaMain {
         tx.begin();
 
         try {
-
             // 멤버 등록하기
 //            Member member = new Member();
 //            member.setId(1l);
@@ -30,10 +31,14 @@ public class JpaMain {
 //            em.remove(findMember);
 
             //멤버 수정
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setName("HelloJPA");
+//            Member findMember = em.find(Member.class, 1L);
+//            findMember.setName("HelloJPA");
 
-
+            // JPQL ; 데이터 조회 방법 ; 객체 지향 코드
+            List<Member> result = em.createQuery("select m from Member as m", Member.class).setFirstResult(0).setMaxResults(2).getResultList();
+            for (Member member : result) {
+                System.out.println("member.name = " + member.getName());
+            }
 
             tx.commit();
         } catch (Exception e) {
