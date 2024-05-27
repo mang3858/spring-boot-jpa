@@ -38,7 +38,7 @@ public class JpaMain {
 //            Member findMember = em.find(Member.class, 1L);
 //            findMember.setName("HelloJPA");
 
-            // JPQL ; 데이터 조회 방법 ; 객체 지향 코드 ; 엔티티 객체를 대상으로 쿼리를 날림
+            // JPQL ; 데이터 조회 방법 ; 객체 지향 코드 ; 엔티티 객체를 대상으로 쿼리를 날림 ; JPQL 실행 시 자동으로 flush 호출됨
 /*            List<Member> result = em.createQuery("select m from Member as m", Member.class).setFirstResult(0).setMaxResults(2).getResultList();
             for (Member member : result) {
                 System.out.println("member.name = " + member.getName());
@@ -50,8 +50,10 @@ public class JpaMain {
             em.persist(member1);
             em.persist(member2);
 
+//            em.flush(); //쓰기 지연 SQL 저장소에 있는 쿼리가 DB에 반영됨
 
-            tx.commit();
+
+            tx.commit(); //플러시 : 영속성 컨텍스트의 변경내용을 데이터베이스에 반영
         } catch (Exception e) {
             tx.rollback();
         } finally {
