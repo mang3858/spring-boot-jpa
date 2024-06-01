@@ -8,29 +8,30 @@ import java.util.Date;
 //@Table(name = "MBR") ; 테이블 명이 디비(MBR)와 코드(Member)가 다를 때
 public class Member {
 
-    @Id //primary key 선언하기
-    private String id;
-    @Column(name = "name")
-    private String username;
+  @Id //primary key 선언하기
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @Column(name = "name")
+  private String username;
 
-    public Member() {
+  public Member() {
 
-    }
+  }
 
-    public String getId() {
-        return id;
-    }
+  public Long getId() {
+      return id;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public void setId(Long id) {
+      this.id = id;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getUsername() {
+      return username;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setUsername(String username) {
+      this.username = username;
+  }
 
 }
