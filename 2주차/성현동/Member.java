@@ -9,7 +9,7 @@ public class Member {
 
     @Id //primary key 선언하기
     private Long id;
-    @Column(name = "name")
+    @Column(unique =True, length= 10) // JPA 실행로직 영향X, DDL 자동생성시에만 영향
     private String username;
 
   public Member() {
