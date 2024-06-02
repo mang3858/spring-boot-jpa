@@ -1,35 +1,34 @@
 package hellojpa;
 
 import jakarta.persistence.*;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
-//@Table(name ="MBR") 테이블명 변경하고 싶을때 name 사용
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username") // unique 조건은 이렇게 테이블 단위로 거는거 추천
+
+})
 public class Member {
-
-    @Id //primary key 선언하기
+    @Id
     private Long id;
-    @Column(unique =True, length= 10) // JPA 실행로직 영향X, DDL 자동생성시에만 영향
+    @Column(name = "name",nullable = false) // unique = true는 여기서 사용하는거 비추
     private String username;
+    private Integer age;
+    @Enumerated(EnumType.STRING)  // DB에는 enum타입이 없음, EnumType.ORDINAL 쓰지마라!
+    private RoleType roleType;
+    @Temporal(TemporalType.TIMESTAMP) // TemporalType = 날짜. 근데 이거 옛날 버젼
+    private Date createdDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
 
-  public Member() {
+    private LocalDate localDate; // 이게 요즘 hibernate 날짜
+    private LocalDateTime localDateTime;
+    @Lob  // 엄청 큰 데이터에 대해서 관리하고 싶을때(문자열은 Clob, 나머지는 Blob)
+    private String description;
 
-  }
-
-  public Long getId() {
-      return id;
-  }
-
-  public void setId(Long id) {
-      this.id = id;
-  }
-
-  public String getUsername() {
-      return username;
-  }
-
-  public void setUsername(String username) {
-      this.username = username;
-  }
-
+    @Transient  // JPA로부터 독립적으로 관리하고 싶은 변수
+    private int item;
 }
