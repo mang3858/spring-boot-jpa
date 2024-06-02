@@ -9,6 +9,6 @@ public class Team {
     private Long id;
     private String name;…
 
-    @OneToMany(mappedBy = "team") // db상에서 fk가 여기 없으므로 양방향관계의 주인x.(가짜맵핑)
+    @OneToMany(mappedBy = "team") // 양방향은 필요할때만 추가하고, 단방향맵핑으로 웬만하면 끝내라.
     List<Member> members = new ArrayList<Member>(); // 읽기전용
 }
