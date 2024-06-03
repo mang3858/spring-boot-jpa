@@ -13,13 +13,12 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try{
-            Member member = em.find(Member.class, 150L);
-            member.setName("aaaaa");
+            Member member = new Member();
+            member.setId(3L);
+            member.setUsername("C");
+            member.setRoleType(RoleType.GUEST);
 
-            em.clear();
-
-            System.out.println("==============");
-
+            em.persist(member);
             tx.commit();
         } catch (Exception e){
             tx.rollback();
