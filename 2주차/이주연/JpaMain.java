@@ -13,9 +13,12 @@ public class JpaMain {
         tx.begin(); // 트랜잭션 시작
 
         try{
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
+            Order order = new Order();
+            em.persist(order);
 
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            em.persist(orderItem);
             tx.commit();
         } catch (Exception e){
             tx.rollback();
