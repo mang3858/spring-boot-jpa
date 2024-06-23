@@ -1,0 +1,48 @@
+package jpabook.jpashop;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
+
+public class JpaMain {
+    public static void main(String[] args) {
+        //EntityManagerFactory를 만드는 순간 데이터베이스랑 연결도 되고 웬만한건 다 됨
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+
+        //; 데이터베이스 커넥션 받았다고 생각
+        //EntityManagerfmf 자바컬렉션처럼 생각; 객체를 나 대신 저장해주는 놈
+        EntityManager em = emf.createEntityManager();
+
+        ////데이터를 변경하는 모든 작업은 jpa에서 트랜잭션 안에서 작업을 해야 함
+        EntityTransaction tx = em.getTransaction();
+        //데이터베이스 트랜잭션 시작
+        tx.begin();
+
+        try {
+            Order order = new Order();
+            em.persist(order);
+            //order.addOrderItem(new OrderItem());
+
+            //order.addOrderItem(new OrderItem()); 이렇게 하지 말고
+            //그냥 위에서 만든 오더에 집어 넣기
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrder(order);
+            em.persist(orderItem);
+
+            //이때 DB에 쿼리가 날아감
+            tx.commit();
+        } catch (Exception e){
+            e.printStackTrace();
+            //문제가 생기면 롤백
+            tx.rollback();
+        } finally {
+            //EntityManager가 내부적으로 데이터베이스 커넥션을 물고 동작하기 때문에 실제 애플리케이션이 끝나면 EntityManagerFactory 닫아줘야 함
+            em.close();
+        }
+        emf.close();
+    }
+}
